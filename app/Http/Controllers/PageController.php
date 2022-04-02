@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use Illuminate\Http\Request;
+use Newsletter;
 
 class PageController extends Controller
 {
@@ -100,4 +102,21 @@ class PageController extends Controller
     //     $data->title = 'TeaCode | FAQ';
     //     return view('pages.faq.index');
     // }
+
+    public function newsletter(Request $request)
+    {
+        $data = new \stdClass;
+        $data->title = 'TeaCode | Newsletter';
+        return view('pages.newsletter');
+    }
+
+    public function subscribe(Request $request)
+    {
+        try {
+            Newsletter::subscribe($request->input('email'));
+            return back()->with('success', 'Awesome !!!');
+        } catch (\Throwable $th) {
+            return back()->with('failure', 'Too bad !!!');
+        }
+    }
 }

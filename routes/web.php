@@ -18,6 +18,8 @@ Route::middleware('cache.headers:public;max_age=15811200;etag')->group(function 
 
     // \Auth::routes();
 
+    Route::get('newsletter','PageController@newsletter');
+    Route::post('newsletter','PageController@subscribe');
 
     Route::group(['prefix' => '_admin'], function () {
 
